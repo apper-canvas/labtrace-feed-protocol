@@ -502,7 +502,7 @@ const MainFeature = ({ onClose }) => {
             </div>
           </motion.div>
          )}
-       </AnimatePresence>
+
       
       <div className="form-group">
         <label htmlFor="additionalInfo" className="form-label">Additional Information (Optional)</label>

@@ -328,7 +328,6 @@ const Home = ({ darkMode }) => {
             ))}
           </div>
         )}
-        )}
       
       {/* Why Choose Us */}
       <section className="mb-8">

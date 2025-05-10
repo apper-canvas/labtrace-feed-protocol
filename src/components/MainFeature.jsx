@@ -463,7 +463,7 @@ const MainFeature = ({ onClose }) => {
               </div>
               )}
             </div>
-            </div>
+          </motion.div>
         )}
         {formData.bookingType === 'combo' && (
           <motion.div

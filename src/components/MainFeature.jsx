@@ -558,7 +558,7 @@ const MainFeature = ({ onClose }) => {
             <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Selected {formData.bookingType === 'test' ? 'Test' : 'Package'}</h4>
             <p className="text-green-700 dark:text-green-300 text-sm">
               Price: ${calculatePrice().toFixed(2)}</p>
-          
+          </div>
           <div>
             <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Address</h4>
             <p className="text-surface-600 dark:text-surface-300 text-sm whitespace-pre-line">{formData.address}</p>

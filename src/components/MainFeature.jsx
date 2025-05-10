@@ -415,31 +415,52 @@ const MainFeature = ({ onClose }) => {
             className="space-y-4"
           >
             <div className="form-group">
-              <label htmlFor="selectedTest" className="form-label">Select Test</label>
-              <select
-                id="selectedTest"
-                name="selectedTest"
-                value={formData.selectedTest}
-                onChange={handleChange}
-                className={`form-control ${errors.selectedTest ? 'border-red-500 focus:ring-red-500' : ''}`}
-              >
-                <option value="">Choose a test</option>
-                {tests.map(test => (
-                  <option key={test.id} value={test.id}>{test.name} - ${test.price}</option>
-                ))}
-              </select>
-              {errors.selectedTest && <p className="form-error">{errors.selectedTest}</p>}
-            </div>
-            
-            {formData.selectedTest && (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                <div className="flex items-center text-green-800 dark:text-green-200 mb-2">
-                  <CheckIcon className="mr-2 flex-shrink-0" size={18} />
-                  <span className="font-medium">Test selected: {tests.find(t => t.id === formData.selectedTest)?.name}</span>
-                </div>
-                <p className="text-green-700 dark:text-green-300 text-sm">
-                  Price: ${tests.find(t => t.id === formData.selectedTest)?.price}
+           >
+            {isLoadingOptions ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <span className="ml-2 text-surface-600 dark:text-surface-400">Loading tests...</span>
+              </div>
+            ) : fetchError ? (
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg text-center">
+                <p className="text-red-600 dark:text-red-400">
+                  {fetchError}
                 </p>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="mt-2 text-sm text-primary underline"
+                >
+                  Try again
+                </button>
+              </div>
+            ) : (
+              <div className="form-group">
+                <label htmlFor="selectedTest" className="form-label">Select Test</label>
+                <select
+                  id="selectedTest"
+                  name="selectedTest"
+                  value={formData.selectedTest}
+                  onChange={handleChange}
+                  className={`form-control ${errors.selectedTest ? 'border-red-500 focus:ring-red-500' : ''}`}
+                >
+                  <option value="">Choose a test</option>
+                  {tests.map(test => (
+                    <option key={test.Id} value={test.Id}>{test.Name} - ${test.price}</option>
+                  ))}
+                </select>
+                {errors.selectedTest && <p className="form-error">{errors.selectedTest}</p>}
+                
+                {formData.selectedTest && (
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg mt-4">
+                    <div className="flex items-center text-green-800 dark:text-green-200 mb-2">
+                      <CheckIcon className="mr-2 flex-shrink-0" size={18} />
+                      <span className="font-medium">Test selected: {tests.find(t => t.Id == formData.selectedTest)?.Name}</span>
+                    </div>
+                    <p className="text-green-700 dark:text-green-300 text-sm">
+                      Price: ${tests.find(t => t.Id == formData.selectedTest)?.price}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </motion.div>
@@ -449,45 +470,83 @@ const MainFeature = ({ onClose }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="space-y-4"
+                name="selectedTest"
+                value={formData.selectedTest}
           >
-            <div className="form-group">
-              <label htmlFor="selectedCombo" className="form-label">Select Package</label>
-              <select
-                id="selectedCombo"
-                name="selectedCombo"
-                value={formData.selectedCombo}
-                onChange={handleChange}
-                className={`form-control ${errors.selectedCombo ? 'border-red-500 focus:ring-red-500' : ''}`}
-              >
-                <option value="">Choose a package</option>
-                {comboPackages.map(combo => (
-                  <option key={combo.id} value={combo.id}>{combo.name} - ${combo.price}</option>
-                ))}
-              </select>
-              {errors.selectedCombo && <p className="form-error">{errors.selectedCombo}</p>}
-            </div>
-            
-            {formData.selectedCombo && (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                <div className="flex items-center text-green-800 dark:text-green-200 mb-2">
-                  <CheckIcon className="mr-2 flex-shrink-0" size={18} />
-                  <span className="font-medium">Package selected: {comboPackages.find(c => c.id === formData.selectedCombo)?.name}</span>
-                </div>
-                <p className="text-green-700 dark:text-green-300 text-sm">
-                  Price: ${comboPackages.find(c => c.id === formData.selectedCombo)?.price}
-                </p>
+            {isLoadingOptions ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <span className="ml-2 text-surface-600 dark:text-surface-400">Loading packages...</span>
+      return test ? test.Name : '';
+      return combo ? combo.Name : '';
+  // Get updated selection name using Id instead of id
+  const getUpdatedSelectionName = () => {
+    if (formData.bookingType === 'test' && formData.selectedTest) {
+      const test = tests.find(t => t.Id == formData.selectedTest);
+      return test ? test.Name : '';
+    } else if (formData.bookingType === 'combo' && formData.selectedCombo) {
+      const combo = comboPackages.find(c => c.Id == formData.selectedCombo);
+      return combo ? combo.Name : '';
+    }
+    return '';
+  };
+  
+  // Get updated price
+  const getUpdatedPrice = () => {
+    if (formData.bookingType === 'test' && formData.selectedTest) {
+      const test = tests.find(t => t.Id == formData.selectedTest);
+      return test ? test.price || 0 : 0;
+    } else if (formData.bookingType === 'combo' && formData.selectedCombo) {
+      const combo = comboPackages.find(c => c.Id == formData.selectedCombo);
+      return combo ? combo.price || 0 : 0;
+    }
+    return 0;
+  };
+  
+            ) : fetchError ? (
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg text-center">
+                <p className="text-red-600 dark:text-red-400">
+                  {fetchError}
+      
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="mt-2 text-sm text-primary underline"
+                >
+                  Try again
+                </button>
+      <div className="form-group">
+            ) : (
+              <div className="form-group">
+                <label htmlFor="selectedCombo" className="form-label">Select Package</label>
+                <select
+                  id="selectedCombo"
+                  name="selectedCombo"
+                  value={formData.selectedCombo}
+                  onChange={handleChange}
+                  className={`form-control ${errors.selectedCombo ? 'border-red-500 focus:ring-red-500' : ''}`}
+                >
+                  <option value="">Choose a package</option>
+                  {comboPackages.map(combo => (
+                    <option key={combo.Id} value={combo.Id}>{combo.Name} - ${combo.price}</option>
+                  ))}
+                </select>
+                {errors.selectedCombo && <p className="form-error">{errors.selectedCombo}</p>}
+                
+                {formData.selectedCombo && (
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg mt-4">
+                    <div className="flex items-center text-green-800 dark:text-green-200 mb-2">
+                      <CheckIcon className="mr-2 flex-shrink-0" size={18} />
+                      <span className="font-medium">Package selected: {comboPackages.find(c => c.Id == formData.selectedCombo)?.Name}</span>
+                    </div>
+                    <p className="text-green-700 dark:text-green-300 text-sm">
+                      Price: ${comboPackages.find(c => c.Id == formData.selectedCombo)?.price}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </motion.div>
         )}
-      </AnimatePresence>
-      
-      <div className="form-group">
-        <label htmlFor="additionalInfo" className="form-label">Additional Information (Optional)</label>
-        <textarea
-          id="additionalInfo"
           name="additionalInfo"
           value={formData.additionalInfo}
           onChange={handleChange}
@@ -531,16 +590,16 @@ const MainFeature = ({ onClose }) => {
             <div>
               <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Appointment</h4>
               <p className="text-surface-900 dark:text-white font-medium">{new Date(formData.selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-              <p className="text-surface-600 dark:text-surface-300 text-sm">{formData.selectedTime}</p>
+              <p className="text-surface-900 dark:text-white font-medium">{formData.selectedDate ? new Date(formData.selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
             </div>
           </div>
           
           <div>
             <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Selected {formData.bookingType === 'test' ? 'Test' : 'Package'}</h4>
             <p className="text-surface-900 dark:text-white font-medium">{getSelectionName()}</p>
-            <p className="text-primary dark:text-primary-light font-bold">
+            <p className="text-surface-900 dark:text-white font-medium">{getUpdatedSelectionName()}</p>
               Price: ${calculatePrice().toFixed(2)}
-            </p>
+              Price: ${getUpdatedPrice().toFixed(2)}
           </div>
           
           <div>

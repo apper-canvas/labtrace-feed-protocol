@@ -294,7 +294,7 @@ const Home = ({ darkMode }) => {
                       Save {combo.discountPercentage}%
                     </div>
                   )}
-                  <span className="text-sm line-through text-surface-500 dark:text-surface-400">${combo.originalPrice}</span>
+                </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2 dark:text-white">{combo.Name}</h3>
                   <p className="text-surface-600 dark:text-surface-400 text-sm mb-3">{combo.description}</p>

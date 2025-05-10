@@ -415,8 +415,7 @@ const MainFeature = ({ onClose }) => {
             className="space-y-4"
           >
             <div className="form-group">
-           >
-            {isLoadingOptions ? (
+              {isLoadingOptions ? (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                 <span className="ml-2 text-surface-600 dark:text-surface-400">Loading tests...</span>
@@ -471,14 +470,13 @@ const MainFeature = ({ onClose }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
                 name="selectedTest"
-                value={formData.selectedTest}
           >
             {isLoadingOptions ? (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                 <span className="ml-2 text-surface-600 dark:text-surface-400">Loading packages...</span>
-      return test ? test.Name : '';
-      return combo ? combo.Name : '';
+              </div>
+            ) : fetchError ? (
   // Get updated selection name using Id instead of id
   const getUpdatedSelectionName = () => {
     if (formData.bookingType === 'test' && formData.selectedTest) {
@@ -504,11 +502,10 @@ const MainFeature = ({ onClose }) => {
   };
   
             ) : fetchError ? (
-              <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg text-center">
                 <p className="text-red-600 dark:text-red-400">
                   {fetchError}
       
-                <button 
+                </p>
                   onClick={() => window.location.reload()}
                   className="mt-2 text-sm text-primary underline"
                 >
@@ -521,7 +518,6 @@ const MainFeature = ({ onClose }) => {
                 <select
                   id="selectedCombo"
                   name="selectedCombo"
-                  value={formData.selectedCombo}
                   onChange={handleChange}
                   className={`form-control ${errors.selectedCombo ? 'border-red-500 focus:ring-red-500' : ''}`}
                 >
@@ -545,15 +541,16 @@ const MainFeature = ({ onClose }) => {
                 )}
               </div>
             )}
+            <div className="form-group">
+              <label htmlFor="additionalInfo" className="form-label">Additional Information (Optional)</label>
+              <textarea
+                id="additionalInfo"
+                name="additionalInfo"
+                value={formData.additionalInfo}
+                onChange={handleChange}
           </motion.div>
         )}
-          name="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={handleChange}
-          rows="3"
-          className="form-control"
-          placeholder="Any specific requirements or medical conditions we should know about?"
-        ></textarea>
+        <div className="form-group">
       </div>
     </div>
   );
@@ -590,7 +587,6 @@ const MainFeature = ({ onClose }) => {
             <div>
               <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Appointment</h4>
               <p className="text-surface-900 dark:text-white font-medium">{new Date(formData.selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-              <p className="text-surface-900 dark:text-white font-medium">{formData.selectedDate ? new Date(formData.selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
             </div>
           </div>
           
@@ -598,9 +594,8 @@ const MainFeature = ({ onClose }) => {
             <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Selected {formData.bookingType === 'test' ? 'Test' : 'Package'}</h4>
             <p className="text-surface-900 dark:text-white font-medium">{getSelectionName()}</p>
             <p className="text-surface-900 dark:text-white font-medium">{getUpdatedSelectionName()}</p>
-              Price: ${calculatePrice().toFixed(2)}
-              Price: ${getUpdatedPrice().toFixed(2)}
-          </div>
+            <p className="text-green-700 dark:text-green-300 text-sm">
+              Price: ${calculatePrice().toFixed(2)}</p>
           
           <div>
             <h4 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-1">Address</h4>

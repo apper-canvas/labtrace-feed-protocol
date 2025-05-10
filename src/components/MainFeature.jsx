@@ -414,7 +414,7 @@ const MainFeature = ({ onClose }) => {
             transition={{ duration: 0.2 }}
             className="space-y-4"
            >
-            <div className="form-group">
+          >
               {false && isLoadingOptions ? (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -463,6 +463,7 @@ const MainFeature = ({ onClose }) => {
                 )}
               </div>
             )}
+            </motion.div>
             </div>
         )}
         {formData.bookingType === 'combo' && (

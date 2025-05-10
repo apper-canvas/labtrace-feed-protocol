@@ -465,7 +465,6 @@ const MainFeature = ({ onClose }) => {
             )}
         )}
         {formData.bookingType === 'combo' && (
-          <motion.div 
           <motion.div
             key="combos"
             initial={{ opacity: 0, y: 10 }}

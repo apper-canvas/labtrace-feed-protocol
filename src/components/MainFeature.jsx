@@ -405,7 +405,7 @@ const MainFeature = ({ onClose }) => {
       </div>
       
       <AnimatePresence mode="wait">
-        {formData.bookingType === 'test' ? (
+        {formData.bookingType === 'test' && (
           <motion.div
             key="tests"
             initial={{ opacity: 0, y: 10 }}
@@ -437,7 +437,7 @@ const MainFeature = ({ onClose }) => {
               <div className="form-group">
                 <label htmlFor="selectedTest" className="form-label">Select Test</label>
                 <select
-                  id="selectedTest"
+                  id="selectedTest" 
                   name="selectedTest"
                   value={formData.selectedTest}
                   onChange={handleChange}
@@ -463,7 +463,9 @@ const MainFeature = ({ onClose }) => {
                 )}
               </div>
             )}
-          </motion.div>
+        )}
+        {formData.bookingType === 'combo' && (
+          <motion.div 
           <motion.div
             key="combos"
             initial={{ opacity: 0, y: 10 }}
@@ -500,8 +502,8 @@ const MainFeature = ({ onClose }) => {
               )}
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+         )}
+       </AnimatePresence>
       
       <div className="form-group">
         <label htmlFor="additionalInfo" className="form-label">Additional Information (Optional)</label>
@@ -513,8 +515,8 @@ const MainFeature = ({ onClose }) => {
           rows="3"
           className="form-control"
         ></textarea>
-        <div className="form-group">
       </div>
+      
     </div>
   );
   

@@ -412,9 +412,8 @@ const MainFeature = ({ onClose }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="space-y-4"
-           >
-          >
+            className="space-y-4">
+            <div>
               {false && isLoadingOptions ? (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -462,8 +461,8 @@ const MainFeature = ({ onClose }) => {
                   </div>
                 )}
               </div>
-            )}
-            </motion.div>
+              )}
+            </div>
             </div>
         )}
         {formData.bookingType === 'combo' && (

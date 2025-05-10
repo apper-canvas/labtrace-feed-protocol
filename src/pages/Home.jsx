@@ -372,6 +372,7 @@ const Home = ({ darkMode }) => {
           })}
         </div>
       </section>
+      </section>
     </div>
   );
 };

@@ -413,7 +413,7 @@ const MainFeature = ({ onClose }) => {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="space-y-4"
-          >
+           >
             <div className="form-group">
               {false && isLoadingOptions ? (
               <div className="flex justify-center items-center py-8">
@@ -501,9 +501,9 @@ const MainFeature = ({ onClose }) => {
               )}
             </div>
           </motion.div>
-         )}
+        )}
+      </AnimatePresence>
 
-      
       <div className="form-group">
         <label htmlFor="additionalInfo" className="form-label">Additional Information (Optional)</label>
         <textarea
